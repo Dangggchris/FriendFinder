@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Finder Survey</title>
@@ -20,7 +20,7 @@
             <input type="text" id="name" class="form-control" required>
 
             <h3>Link to Photo (Required)</h3>
-            <input type="text" id="name" class="form-control" required>
+            <input type="text" id="photo" class="form-control" required>
     <hr>
 
     <!-- Survey Questions -->
@@ -161,9 +161,54 @@
 
         <footer class="footer">
             <div class="container">
-                <p><a href="/api/friends">API Friends</a> | Github Repo</p>
+                <p><a href="/api/friends">API Friends</a> | <a href="https://github.com/Dangggchris/FriendFinder">Github Repo</a></p>
             </div>
         </footer>
     </div>
 </body>
+<script type="text/javascript">
+// Save new friend to friendD
+$("#submit").on("click", function(event) {
+  event.preventDefault();
+
+  // Grab elements in questions and create object
+  var newFriend = {
+    name: $("#name").val().trim(),
+    photo: $("#photo").val().trim(),
+    q1: $("#q1").val().trim(),
+    q2: $("#q2").val().trim(),
+    q3: $("#q3").val().trim(),
+    q4: $("#q4").val().trim(),
+    q5: $("#q5").val().trim(),
+    q6: $("#q6").val().trim(),
+    q7: $("#q7").val().trim(),
+    q8: $("#q8").val().trim(),
+    q9: $("#q9").val().trim(),
+    q10: $("#q10").val().trim()
+  };
+
+  console.log(newFriend);
+
+  // Sends object to friends API for post request
+  $.post("/api/friends", newFriend,
+    function(data) {
+
+      // Clear the form when submitting
+      $("#name").val("");
+      $("#photo").val("");
+      $("#q1").val("");
+      $("#q2").val("");
+      $("#q3").val("");
+      $("#q4").val("");
+      $("#q5").val("");
+      $("#q6").val("");
+      $("#q7").val("");
+      $("#q8").val("");
+      $("#q9").val("");
+      $("#q10").val("");
+
+    });
+
+});
+</script>
 </html>
